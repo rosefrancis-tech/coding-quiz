@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: rgb(68, 28, 209);
+    --secondary: rgb(141, 120, 218);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    margin: 3rem;
+}
+
+header .quiz-timer {
+float:right;
+}
+
+.quiz-card {
+    text-align: center;
+    margin-top: 10rem;
+}
+
+.btn {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 2rem;
+    border-radius: 12px;
+}
+
+footer {
+    text-align: center;
+    margin:3rem;
+}
