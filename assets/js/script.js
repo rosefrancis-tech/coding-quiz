@@ -39,7 +39,8 @@ var options = document.createElement("button");
 var questionNumber = 0;
 var choice = "";
 var score = 0;
-var counter = 5;
+var counter = 30;
+var flag = false;
 
 // function for starting quiz
 var startQuiz = function(event) {
@@ -109,7 +110,7 @@ var displayResults = function() {
     scoreCardEl.appendChild(scoreEl5);
 };
 
-// function for checking answers and quiz status
+// function for checking answers and calculating scores
 var submitAnswer = function (event) {
     
    var optionId = event.target.id;
@@ -120,10 +121,12 @@ var submitAnswer = function (event) {
     }
     else {
         choice = "Wrong!";
+        counter = counter - 10;
         console.log(score);
     }
     questionNumber++;
-    // check if this is the last question
+    callF(questionNumber);
+/*    // check if this is the last question
     if (questionNumber === myQuestions.length) {
         // show answer
         displayAnswer(choice);
@@ -138,14 +141,60 @@ var submitAnswer = function (event) {
         quizContainer.remove();
         // show new question and options
         startQuiz();
+    }*/
+};
+
+var callF = function(questionNumber) {
+     // check if this is the last question
+     if (questionNumber === myQuestions.length) {
+        // show answer
+        displayAnswer(choice);
+        console.log("All done!");
+        // show final score
+        displayResults();     
+        flag = true; 
+    }
+    else {
+        // show answer
+        displayAnswer(choice);
+        // remove last question and options
+        quizContainer.remove();
+        // show new question and options
+        startQuiz();
     }
 };
 
+// function for timer countdown and game over if time: 0
 var timer = function(event) {
-    console.log(event.target);
+    // display total time available
+    var time = document.querySelector("#time-left");
+    time.innerHTML = counter;
     
+    // function for countdown
+    var countdown = function () {
+        counter --;
+        // display current time, discard negative values
+        if(Math.sign(counter) === -1) {
+            time.innerHTML = 0;
+        }
+        else if (Math.sign(counter >= 0)) {
+            time.innerHTML = counter;
+        }
+        
+        if (counter <= 0) {
+            clearInterval(startCountdown);
+            // display results only if results not displayed
+            if (flag === false) {
+                displayResults();
+                clearInterval(startCountdown);
+            }
+        }
+    };
+    // start countdown timer
+    var startCountdown = setInterval(countdown,1000);
 };
 
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
+// for timer
 quizIntroEl.addEventListener("click", timer);
