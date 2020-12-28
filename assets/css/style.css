@@ -21,6 +21,7 @@ header .quiz-timer {
 float:right;
 }
 
+.quiz-card,
 .quiz-intro {
     text-align: center;
     margin-top: 10rem;
