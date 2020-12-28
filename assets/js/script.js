@@ -38,6 +38,7 @@ var quizQuest = document.createElement("p");
 var options = document.createElement("button");
 var questionNumber = 0;
 var choice = "";
+var score = 0;
 
 // function for starting quiz
 var startQuiz = function(event) {
@@ -52,7 +53,7 @@ var startQuiz = function(event) {
     if (questionNumber < myQuestions.length) {
              
         quizQuest.innerHTML = myQuestions[questionNumber].question;
-        quizCardEl.appendChild(quizQuest);
+        quizContainer.appendChild(quizQuest);
         
         for (var j = 0; j < 4; j++) {
             options = document.createElement("button");
@@ -81,10 +82,36 @@ var displayAnswer = function(choice) {
 // function for display results
 
 var displayResults = function() {
-    quizCardEl.remove();
+    quizContainer.remove();
+    console.log("Results");
+
     var scoreCardEl = document.createElement("div");
-    scoreCardEl.innerHTML =
-    "<h3 class=''>All done!</h3> <p class=''>Your final score is" + x + ".";
+    scoreCardEl.className = ".quiz-card";
+    var scoreEl1 = document.createElement("h3");
+    quizCardEl.appendChild(scoreCardEl);
+    scoreEl1.innerHTML = "All done!";
+    scoreCardEl.appendChild(scoreEl1);
+    
+    var scoreEl2 = document.createElement("p");
+    scoreEl2.innerHTML = "Your final score is " + score +".";
+    scoreCardEl.appendChild(scoreEl2);
+
+    var scoreEl3 = document.createElement("label");
+    scoreEl3.setAttribute("for", "score");
+    scoreEl3.innerHTML = "Enter Initials: ";
+    scoreCardEl.appendChild(scoreEl3);
+    
+    var scoreEl4 = document.createElement("input");
+    scoreEl4.setAttribute("type", "text");
+    scoreEl4.setAttribute("id", "score");
+    scoreEl4.setAttribute("name", "score");
+    scoreCardEl.appendChild(scoreEl4);
+
+    var scoreEl5 = document.createElement("button");
+    scoreEl5.setAttribute("type", "submit");
+    scoreEl5.innerHTML = "Submit";
+    scoreCardEl.appendChild(scoreEl5);
+
 
 };
 
@@ -94,6 +121,8 @@ var submitAnswer = function (event) {
    var optionId = event.target.id;
     if (optionId === myQuestions[questionNumber].correctAnswer) {
         choice = "Correct!";
+        score = score + 20;
+        console.log(score);
     }
     else {
         choice = "Wrong!";
@@ -103,15 +132,16 @@ var submitAnswer = function (event) {
     console.log(myQuestions.length);
     if (questionNumber === myQuestions.length) {
         // call Results
-        debugger;
+        //debugger;
         console.log("All done!");
         displayResults();
     }
-    
-    displayAnswer(choice);
+    else {
+        displayAnswer(choice);
+    }
 };
 
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
 // for submitting answers
-quizContainer.addEventListener("click", submitAnswer);
+//quizContainer.addEventListener("click", submitAnswer);
