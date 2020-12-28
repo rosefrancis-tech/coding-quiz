@@ -34,27 +34,28 @@ var myQuestions = [
   ];
 
 var quizContainer = document.createElement("div");
-var quizQuest = document.createElement("p");
+var quizQuest = document.createElement("h3");
 var options = document.createElement("button");
 var questionNumber = 0;
 var choice = "";
 var score = 0;
+var counter = 5;
 
 // function for starting quiz
 var startQuiz = function(event) {
     // clear screen
     quizIntroEl.remove(); 
+    
     // add elements for quiz
-    //var quizQuest = document.createElement("p");
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
         
-    // add questions and answers to elements
+    // add questions to elements
     if (questionNumber < myQuestions.length) {
              
         quizQuest.innerHTML = myQuestions[questionNumber].question;
         quizContainer.appendChild(quizQuest);
-        
+        // add option buttons to elements
         for (var j = 0; j < 4; j++) {
             options = document.createElement("button");
             options.className = "option-btn";
@@ -62,7 +63,7 @@ var startQuiz = function(event) {
             options.setAttribute("id", "btnid" + j);
             quizContainer.appendChild(options);
             quizCardEl.appendChild(quizContainer);
-            console.log(options);
+            
         }  
         // for submitting answers
         quizContainer.addEventListener("click", submitAnswer); 
@@ -70,21 +71,16 @@ var startQuiz = function(event) {
     
 };
 
-
+// function for display whether the answer was right or wrong
 var displayAnswer = function(choice) {
     console.log(choice);
-    //console.log("hi");
     document.querySelector("#message").textContent = choice;
-    quizContainer.remove();
-    startQuiz();
 };
 
 // function for display results
-
 var displayResults = function() {
     quizContainer.remove();
-    console.log("Results");
-
+    
     var scoreCardEl = document.createElement("div");
     scoreCardEl.className = ".quiz-card";
     var scoreEl1 = document.createElement("h3");
@@ -111,13 +107,11 @@ var displayResults = function() {
     scoreEl5.setAttribute("type", "submit");
     scoreEl5.innerHTML = "Submit";
     scoreCardEl.appendChild(scoreEl5);
-
-
 };
 
+// function for checking answers and quiz status
 var submitAnswer = function (event) {
-    //debugger;
-   // console.log("hi");
+    
    var optionId = event.target.id;
     if (optionId === myQuestions[questionNumber].correctAnswer) {
         choice = "Correct!";
@@ -126,22 +120,32 @@ var submitAnswer = function (event) {
     }
     else {
         choice = "Wrong!";
+        console.log(score);
     }
     questionNumber++;
-    console.log(questionNumber);
-    console.log(myQuestions.length);
+    // check if this is the last question
     if (questionNumber === myQuestions.length) {
-        // call Results
-        //debugger;
+        // show answer
+        displayAnswer(choice);
         console.log("All done!");
-        displayResults();
+        // show final score
+        displayResults();      
     }
     else {
+        // show answer
         displayAnswer(choice);
+        // remove last question and options
+        quizContainer.remove();
+        // show new question and options
+        startQuiz();
     }
+};
+
+var timer = function(event) {
+    console.log(event.target);
+    
 };
 
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
-// for submitting answers
-//quizContainer.addEventListener("click", submitAnswer);
+quizIntroEl.addEventListener("click", timer);
