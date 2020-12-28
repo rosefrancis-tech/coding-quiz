@@ -72,13 +72,13 @@ var startQuiz = function(event) {
     
 };
 
-// function for display whether the answer was right or wrong
+// function for displaying whether the answer was right or wrong
 var displayAnswer = function(choice) {
     console.log(choice);
     document.querySelector("#message").textContent = choice;
 };
 
-// function for display results
+// function for displaying results
 var displayResults = function() {
     quizContainer.remove();
     
@@ -126,24 +126,9 @@ var submitAnswer = function (event) {
     }
     questionNumber++;
     callF(questionNumber);
-/*    // check if this is the last question
-    if (questionNumber === myQuestions.length) {
-        // show answer
-        displayAnswer(choice);
-        console.log("All done!");
-        // show final score
-        displayResults();      
-    }
-    else {
-        // show answer
-        displayAnswer(choice);
-        // remove last question and options
-        quizContainer.remove();
-        // show new question and options
-        startQuiz();
-    }*/
 };
 
+// function for checking last question
 var callF = function(questionNumber) {
      // check if this is the last question
      if (questionNumber === myQuestions.length) {
@@ -180,7 +165,8 @@ var timer = function(event) {
         else if (Math.sign(counter >= 0)) {
             time.innerHTML = counter;
         }
-        
+
+        // stop counting below zero
         if (counter <= 0) {
             clearInterval(startCountdown);
             // display results only if results not displayed
@@ -196,5 +182,5 @@ var timer = function(event) {
 
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
-// for timer
+// for starting timer
 quizIntroEl.addEventListener("click", timer);
