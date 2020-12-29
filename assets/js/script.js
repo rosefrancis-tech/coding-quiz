@@ -78,6 +78,12 @@ var displayAnswer = function(choice) {
     document.querySelector("#message").textContent = choice;
 };
 
+/*var scoreObj = {
+    thisName: '',
+    thisScore: ''
+};*/
+
+
 // function for displaying results
 var displayResults = function() {
     quizContainer.remove();
@@ -94,20 +100,47 @@ var displayResults = function() {
     scoreCardEl.appendChild(scoreEl2);
 
     var scoreEl3 = document.createElement("label");
-    scoreEl3.setAttribute("for", "score");
+    scoreEl3.setAttribute("for", "nick-name");
     scoreEl3.innerHTML = "Enter Initials: ";
     scoreCardEl.appendChild(scoreEl3);
     
     var scoreEl4 = document.createElement("input");
     scoreEl4.setAttribute("type", "text");
-    scoreEl4.setAttribute("id", "score");
-    scoreEl4.setAttribute("name", "score");
+    scoreEl4.setAttribute("id", "nick-name");
+    scoreEl4.setAttribute("name", "initial");
+    scoreEl4.setAttribute("value", "");
     scoreCardEl.appendChild(scoreEl4);
 
     var scoreEl5 = document.createElement("button");
     scoreEl5.setAttribute("type", "submit");
     scoreEl5.innerHTML = "Submit";
     scoreCardEl.appendChild(scoreEl5);
+    score = JSON.stringify(score);
+    //console.log(score);
+    var scoreObj = {
+        thisName: scoreEl4.value,
+        thisScore: score
+    };
+    
+    scoreEl5.addEventListener("click", function(){
+        scoreHistory(scoreObj);
+    });
+
+};
+var highScores = [];
+
+// function for local storage
+var scoreHistory = function(scoreObj) {
+    scoreObj.thisName = document.querySelector("input[name='initial']").value;
+    var savedScores = localStorage.getItem("webScores");
+    savedScores = JSON.parse(savedScores);
+    if(savedScores) {
+        highScores = savedScores;
+    }
+    highScores.push(scoreObj);
+    var webScores = highScores;        
+    localStorage.setItem("webScores", JSON.stringify(webScores));
+        
 };
 
 // function for checking answers and calculating scores
@@ -120,18 +153,20 @@ var submitAnswer = function (event) {
         console.log(score);
     }
     else {
-        choice = "Wrong!";
+        choice = "Last response is Wrong!";
         counter = counter - 10;
         console.log(score);
     }
     questionNumber++;
-    callF(questionNumber);
+    nextQuestion(questionNumber);
 };
 
-// function for checking last question
-var callF = function(questionNumber) {
+// function for display next question or game-over after last question
+var nextQuestion = function(questionNumber) {
      // check if this is the last question
      if (questionNumber === myQuestions.length) {
+        // set timer to zero
+        counter = 0;
         // show answer
         displayAnswer(choice);
         console.log("All done!");
@@ -142,14 +177,14 @@ var callF = function(questionNumber) {
     else {
         // show answer
         displayAnswer(choice);
-        // remove last question and options
+        // remove last question and options from screen
         quizContainer.remove();
         // show new question and options
         startQuiz();
     }
 };
 
-// function for timer countdown and game over if time: 0
+// function for timer countdown and game over when time runs out
 var timer = function(event) {
     // display total time available
     var time = document.querySelector("#time-left");
