@@ -1,4 +1,5 @@
 // global variables declaration
+var body = document.querySelector("#body");
 var quizIntroEl = document.querySelector("#quiz-intro");
 var quizCardEl  = document.querySelector("#quiz-card");
 var highScoreLinkEl = document.querySelector("#high-scores");
@@ -58,6 +59,8 @@ var startQuiz = function(event) {
     // add elements for quiz
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
+    quizContainer.setAttribute("onmousedown", "clearFooter()");
+    //quizContainer.setAttribute("onmouseup", "submitAnswer()");
         
     // add questions to elements
     if (questionNumber < myQuestions.length) {
@@ -70,12 +73,17 @@ var startQuiz = function(event) {
             options.className = "option-btn";
             options.innerHTML = myQuestions[questionNumber].answers[j];
             options.setAttribute("id", "btnid" + j);
+            //options.setAttribute("onmousedown", "clearFooter()");
             quizContainer.appendChild(options);
             quizCardEl.appendChild(quizContainer);
             
         }  
         // for submitting answers
-        quizContainer.addEventListener("click", submitAnswer); 
+        debugger;
+        
+         //   quizContainer.addEventListener("mousedown", clearFooter); 
+        
+        quizContainer.addEventListener("mouseup", submitAnswer); 
     }
     
 };
@@ -83,10 +91,14 @@ var startQuiz = function(event) {
 // function for displaying whether the answer was right or wrong in footer
 var displayAnswer = function(choice) {
     console.log(choice);
+    body.appendChild(footerEl);
     footerEl.textContent = choice;
+   
 };
+
 // function for clear footer
 var clearFooter = function () {
+    debugger;
     footerEl.remove();
 };
 
@@ -94,6 +106,7 @@ var clearFooter = function () {
 var clearHeader = function () {
     headerEl.remove();
 };
+
 // function for displaying results
 var displayResults = function() {
     quizContainer.remove();
@@ -136,10 +149,7 @@ var displayResults = function() {
     };
     
     scoreEl5.addEventListener("click", function() {
-        /*
-        if(!scoreObj.thisName.value) {
-            prompt("Please enter your initials");
-        }*/
+        
         // call function for clear header
         clearHeader();
 
@@ -152,11 +162,10 @@ var displayResults = function() {
     });
 };
 
-
 // function for view high scores
 var viewHighScores = function () {
     // if the quiz were completed in the current session, header and footer is already cleared
-    debugger;
+    
     console.log(highScores.length);
     if(highScores.length === 0) {
         // call function for clear header
@@ -164,7 +173,7 @@ var viewHighScores = function () {
         // call function for clear footer
         clearFooter();
     }
-    //debugger;
+    
     scoreCardEl.remove();
     quizIntroEl.remove();
     //quizCardEl.remove();
@@ -182,18 +191,6 @@ var viewHighScores = function () {
     tableEl.setAttribute("id", "score-table");
     highScoreCardEl.appendChild(tableEl);
     
-    console.log(highScores);
-
-    // get item from local storage
-    var savedScores = localStorage.getItem("webScores");
-    savedScores = JSON.parse(savedScores);
-    if(savedScores) {
-        console.log("saved" + savedScores);
-        for(var k = 0; k < savedScores.length; k ++) {
-            highScores.push(savedScores[k]);
-        }
-    }
-
     //create table rows
     for(var i = 0; i < highScores.length; i++) {
         
@@ -237,12 +234,12 @@ var scoreHistory = function(scoreObj) {
         return false;
     }
     else {
-    /*var savedScores = localStorage.getItem("webScores");
+    var savedScores = localStorage.getItem("webScores");
     savedScores = JSON.parse(savedScores);
     if(savedScores) {
         highScores = savedScores;
-    }*/
-    debugger;
+    }
+    //debugger;
     highScores.push(scoreObj);
     var webScores = highScores;        
     localStorage.setItem("webScores", JSON.stringify(webScores));
@@ -258,36 +255,42 @@ var submitAnswer = function (event) {
     if (optionId === myQuestions[questionNumber].correctAnswer) {
         choice = "Correct!";
         score = score + 20;
-        console.log(score);
+        //console.log(score);
     }
     else {
-        choice = "Last response is Wrong!";
+        choice = "Wrong!";
         counter = counter - 10;
-        console.log(score);
+        //console.log(score);
     }
+    debugger;
     questionNumber++;
+    // show answer
+    displayAnswer(choice);
+    //quizContainer.setAttribute("onmousedown", "clearFooter()");
+    //options.setAttribute("onmouseup", "nextQuestion(questionNumber)");
+    
+   
     nextQuestion(questionNumber);
 };
 
 // function for display next question or game-over after last question
 var nextQuestion = function(questionNumber) {
-     // check if this is the last question
+    // show answer
+    //displayAnswer(choice);
+     // if this is the last question of array
      if (questionNumber === myQuestions.length) {
         // set timer to zero
         counter = 0;
-        // show answer
-        displayAnswer(choice);
         console.log("All done!");
         // show final score
         displayResults();     
         flag = true; 
     }
     else {
-        // show answer
-        displayAnswer(choice);
-        // remove last question and options from screen
+        //clearFooter();
+        // remove current question and options from screen
         quizContainer.remove();
-        // show new question and options
+        // show next question and options
         startQuiz();
     }
 };
@@ -328,4 +331,4 @@ quizIntroEl.addEventListener("click", startQuiz);
 // for starting timer
 quizIntroEl.addEventListener("click", timer);
 // for view high scores
-highScoreLinkEl.addEventListener("click", viewHighScores);
+//highScoreLinkEl.addEventListener("click", spoilerAlert);
