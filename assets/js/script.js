@@ -2,6 +2,8 @@
 var quizIntroEl = document.querySelector("#quiz-intro");
 var quizCardEl  = document.querySelector("#quiz-card");
 var highScoreLinkEl = document.querySelector("#high-scores");
+var headerEl = document.querySelector("#header");
+var footerEl = document.querySelector("#message");
 var myQuestions = [
     {
       question: "Who invented JavaScript?",
@@ -79,16 +81,16 @@ var startQuiz = function(event) {
 // function for displaying whether the answer was right or wrong in footer
 var displayAnswer = function(choice) {
     console.log(choice);
-    document.querySelector("#message").textContent = choice;
+    footerEl.textContent = choice;
 };
 // function for clear footer
 var clearFooter = function () {
-    document.querySelector("#message").remove();
+    footerEl.remove();
 };
 
 // function for clear header
 var clearHeader = function () {
-    document.querySelector("#header").remove();
+    headerEl.remove();
 };
 // function for displaying results
 var displayResults = function() {
@@ -103,7 +105,10 @@ var displayResults = function() {
     var scoreEl2 = document.createElement("p");
     scoreEl2.innerHTML = "Your final score is " + score +".";
     scoreCardEl.appendChild(scoreEl2);
-
+/*
+    var formEl = document.createElement("form");
+    scoreCardEl.appendChild(formEl);
+*/
     var scoreEl3 = document.createElement("label");
     scoreEl3.setAttribute("for", "nick-name");
     scoreEl3.innerHTML = "Enter Initials: ";
@@ -114,11 +119,11 @@ var displayResults = function() {
     scoreEl4.setAttribute("id", "nick-name");
     scoreEl4.setAttribute("name", "initial");
     scoreEl4.setAttribute("value", "");
-    scoreEl4.setAttribute("required", "");
+    //scoreEl4.setAttribute("required", "");
     scoreCardEl.appendChild(scoreEl4);
 
     var scoreEl5 = document.createElement("button");
-    scoreEl5.setAttribute("type", "submit");
+    scoreEl5.setAttribute("type", "button");
     scoreEl5.setAttribute("onmousedown", "clearFooter()");
     scoreEl5.innerHTML = "Submit";
     scoreCardEl.appendChild(scoreEl5);
@@ -138,15 +143,16 @@ var displayResults = function() {
 
         // call function for local storage
         scoreHistory(scoreObj);
-        
+        if(scoreObj.thisName){
         // call function to display high scores
-        viewHighScores();      
+        viewHighScores(highScores);    
+        }  
     });
 };
 
 
 // function for view high scores
-var viewHighScores = function () {
+var viewHighScores = function (highScores) {
     // if the quiz were completed in the current session, header and footer is already cleared
     if(highScores.length === 0) {
         // call function for clear header
@@ -210,6 +216,12 @@ var viewHighScores = function () {
 // function for local storage
 var scoreHistory = function(scoreObj) {
     scoreObj.thisName = document.querySelector("input[name='initial']").value;
+    if(!scoreObj.thisName) {
+        alert("Please enter your initials");
+        //debugger;
+        return false;
+    }
+    else {
     var savedScores = localStorage.getItem("webScores");
     savedScores = JSON.parse(savedScores);
     if(savedScores) {
@@ -220,6 +232,7 @@ var scoreHistory = function(scoreObj) {
     localStorage.setItem("webScores", JSON.stringify(webScores));
     
     return highScores;
+}
 };
 
 // function for checking answers and calculating scores
