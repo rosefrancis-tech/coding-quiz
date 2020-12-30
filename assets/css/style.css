@@ -49,6 +49,15 @@ float:right;
     display: block;
 
 }
+#score-table {
+        width: 30%;
+        margin: auto auto auto 40%;
+        text-align: left;
+        overflow-x: auto;
+}
+#score-tr:nth-child(odd) {
+    background-color: #b4abab;
+}
 
 footer {
     text-align: center;

@@ -83,12 +83,11 @@ var displayAnswer = function(choice) {
     thisScore: ''
 };*/
 
-
+var scoreCardEl = document.createElement("div");
 // function for displaying results
 var displayResults = function() {
     quizContainer.remove();
-    
-    var scoreCardEl = document.createElement("div");
+        
     scoreCardEl.className = ".quiz-card";
     var scoreEl1 = document.createElement("h3");
     quizCardEl.appendChild(scoreCardEl);
@@ -115,7 +114,7 @@ var displayResults = function() {
     scoreEl5.setAttribute("type", "submit");
     scoreEl5.innerHTML = "Submit";
     scoreCardEl.appendChild(scoreEl5);
-    score = JSON.stringify(score);
+    //score = JSON.stringify(score);
     //console.log(score);
     var scoreObj = {
         thisName: scoreEl4.value,
@@ -123,8 +122,58 @@ var displayResults = function() {
     };
     
     scoreEl5.addEventListener("click", function(){
+        // call function for local storage
         scoreHistory(scoreObj);
+        
+        // display high scores
+        scoreCardEl.remove();
+        var highScoreCardEl = document.createElement("div");
+        highScoreCardEl.className = ".quiz-card";
+        var headEl = document.createElement("h3");
+        quizCardEl.appendChild(highScoreCardEl);
+        headEl.innerHTML = "High Scores";
+        highScoreCardEl.appendChild(headEl);
+        
+
+        // create table element
+        var tableEl = document.createElement("table");
+        tableEl.setAttribute("id", "score-table");
+        highScoreCardEl.appendChild(tableEl);
+        
+        console.log(highScores);
+        for(var i = 0; i < highScores.length; i++) {
+            
+            var y = document.createElement("tr");
+            y.setAttribute("id", "score-tr");
+            tableEl.appendChild(y);
+        
+            var z = document.createElement("td");
+            z.innerHTML = highScores[i].thisName + " - " + highScores[i].thisScore;
+            y.appendChild(z);
+        }
+        // create buttons
+        var goBackEl = document.createElement("button");
+        goBackEl.setAttribute("type", "submit");
+        goBackEl.innerHTML = "Go back";
+        highScoreCardEl.appendChild(goBackEl);
+        // refresh page on button click
+        goBackEl.addEventListener("click", function() {
+        location.reload()
+        });
+
+        var clearEl = document.createElement("button");
+        clearEl.setAttribute("type", "submit");
+        clearEl.innerHTML = "Clear high Scores";
+        highScoreCardEl.appendChild(clearEl);
+        // clear local storage on button click
+        clearEl.addEventListener("click", function() {
+            localStorage.clear();
+            tableEl.remove();
+        });
+        
+        
     });
+    
 
 };
 var highScores = [];
@@ -140,7 +189,8 @@ var scoreHistory = function(scoreObj) {
     highScores.push(scoreObj);
     var webScores = highScores;        
     localStorage.setItem("webScores", JSON.stringify(webScores));
-        
+    
+    return highScores;
 };
 
 // function for checking answers and calculating scores
