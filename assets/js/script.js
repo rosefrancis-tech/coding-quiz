@@ -1,10 +1,16 @@
 // global variables declaration
 var body = document.querySelector("#body");
-var quizIntroEl = document.querySelector("#quiz-intro");
 var quizCardEl  = document.querySelector("#quiz-card");
-var highScoreLinkEl = document.querySelector("#high-scores");
 var headerEl = document.querySelector("#header");
 var footerEl = document.querySelector("#message");
+var quizIntroEl = document.querySelector("#quiz-intro");
+
+var quizContainer = document.createElement("div");
+var quizQuest = document.createElement("h3");
+var options = document.createElement("button");
+var scoreCardEl = document.createElement("div");
+var highScoreLinkEl = document.querySelector("#high-scores");
+
 var myQuestions = [
     {
       question: "Who invented JavaScript?",
@@ -37,19 +43,13 @@ var myQuestions = [
       correctAnswer: "btnid3"
     }
   ];
-
-var quizContainer = document.createElement("div");
-var quizQuest = document.createElement("h3");
-var options = document.createElement("button");
-var scoreCardEl = document.createElement("div");
 var questionNumber = 0;
 var choice = "";
 var score = 0;
-var counter = 30;
+var counter = (myQuestions.length) * 10;
 var flag = false;
 var highScores = [];
-console.log(highScores);
-console.log(highScores.length);
+
 // function for starting quiz
 var startQuiz = function(event) {
     // clear screen
@@ -82,7 +82,7 @@ var startQuiz = function(event) {
     
 };
 
-// function for displaying whether the answer was right or wrong in footer
+// function for displaying the answer in footer
 var displayAnswer = function(choice) {
     console.log(choice);
     body.appendChild(footerEl);
@@ -252,7 +252,7 @@ var submitAnswer = function (event) {
     nextQuestion(questionNumber);
 };
 
-// function for display next question or game-over after last question
+// function for either display next question or game-over when all questions answered
 var nextQuestion = function(questionNumber) {
     // when questions finish
     if (questionNumber === myQuestions.length) {
@@ -303,9 +303,9 @@ var timer = function(event) {
     // start countdown timer
     var startCountdown = setInterval(countdown,1000);
 };
-
+// function for view scores from other pages
 var spoilerAlert = function() {
-    alert("High Scores will be displayed when you submit your score!")
+    alert("High Scores will be displayed when you submit your score!");
 };
 
 // for Start Quiz button
