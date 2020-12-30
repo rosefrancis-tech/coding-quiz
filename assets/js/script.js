@@ -158,13 +158,15 @@ var displayResults = function() {
 
 // function for view high scores
 var viewHighScores = function () {
+    // FUTURE ENHANCEMENT:
     // if the quiz were completed in the current session, header and footer is already cleared
-    if(highScores.length === 0) {
+    // so clear header and footer, for viewing high score before attending quiz
+    /*if(highScores.length === 0) {
         // call function for clear header
         clearHeader();
         // call function for clear footer
         clearFooter();
-    }
+    }*/
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
@@ -181,13 +183,13 @@ var viewHighScores = function () {
     
     //create table rows
     for(var i = 0; i < highScores.length; i++) {
-        
+        var serialNo = i+1;
         var y = document.createElement("tr");
         y.setAttribute("id", "score-tr");
         tableEl.appendChild(y);
     
         var z = document.createElement("td");
-        z.innerHTML = highScores[i].thisName + " - " + highScores[i].thisScore;
+        z.innerHTML = serialNo + ". " + highScores[i].thisName + " - " + highScores[i].thisScore;
         y.appendChild(z);
     }
     // create buttons
