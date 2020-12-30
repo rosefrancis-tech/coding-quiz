@@ -1,5 +1,7 @@
+// global variables declaration
 var quizIntroEl = document.querySelector("#quiz-intro");
 var quizCardEl  = document.querySelector("#quiz-card");
+var highScoreLinkEl = document.querySelector("#high-scores");
 var myQuestions = [
     {
       question: "Who invented JavaScript?",
@@ -36,12 +38,14 @@ var myQuestions = [
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h3");
 var options = document.createElement("button");
+var scoreCardEl = document.createElement("div");
 var questionNumber = 0;
 var choice = "";
 var score = 0;
 var counter = 30;
 var flag = false;
-
+var highScores = [];
+console.log(highScores);
 // function for starting quiz
 var startQuiz = function(event) {
     // clear screen
@@ -72,18 +76,20 @@ var startQuiz = function(event) {
     
 };
 
-// function for displaying whether the answer was right or wrong
+// function for displaying whether the answer was right or wrong in footer
 var displayAnswer = function(choice) {
     console.log(choice);
     document.querySelector("#message").textContent = choice;
 };
+// function for clear footer
+var clearFooter = function () {
+    document.querySelector("#message").remove();
+};
 
-/*var scoreObj = {
-    thisName: '',
-    thisScore: ''
-};*/
-
-var scoreCardEl = document.createElement("div");
+// function for clear header
+var clearHeader = function () {
+    document.querySelector("#header").remove();
+};
 // function for displaying results
 var displayResults = function() {
     quizContainer.remove();
@@ -108,77 +114,98 @@ var displayResults = function() {
     scoreEl4.setAttribute("id", "nick-name");
     scoreEl4.setAttribute("name", "initial");
     scoreEl4.setAttribute("value", "");
+    scoreEl4.setAttribute("required", "");
     scoreCardEl.appendChild(scoreEl4);
 
     var scoreEl5 = document.createElement("button");
     scoreEl5.setAttribute("type", "submit");
+    scoreEl5.setAttribute("onmousedown", "clearFooter()");
     scoreEl5.innerHTML = "Submit";
     scoreCardEl.appendChild(scoreEl5);
-    //score = JSON.stringify(score);
-    //console.log(score);
+    
     var scoreObj = {
         thisName: scoreEl4.value,
         thisScore: score
     };
     
-    scoreEl5.addEventListener("click", function(){
+    scoreEl5.addEventListener("click", function() {
+        /*
+        if(!scoreObj.thisName.value) {
+            prompt("Please enter your initials");
+        }*/
+        // call function for clear header
+        clearHeader();
+
         // call function for local storage
         scoreHistory(scoreObj);
         
-        // display high scores
-        scoreCardEl.remove();
-        var highScoreCardEl = document.createElement("div");
-        highScoreCardEl.className = ".quiz-card";
-        var headEl = document.createElement("h3");
-        quizCardEl.appendChild(highScoreCardEl);
-        headEl.innerHTML = "High Scores";
-        highScoreCardEl.appendChild(headEl);
-        
-
-        // create table element
-        var tableEl = document.createElement("table");
-        tableEl.setAttribute("id", "score-table");
-        highScoreCardEl.appendChild(tableEl);
-        
-        console.log(highScores);
-        for(var i = 0; i < highScores.length; i++) {
-            
-            var y = document.createElement("tr");
-            y.setAttribute("id", "score-tr");
-            tableEl.appendChild(y);
-        
-            var z = document.createElement("td");
-            z.innerHTML = highScores[i].thisName + " - " + highScores[i].thisScore;
-            y.appendChild(z);
-        }
-        // create buttons
-        var goBackEl = document.createElement("button");
-        goBackEl.setAttribute("type", "submit");
-        goBackEl.innerHTML = "Go back";
-        highScoreCardEl.appendChild(goBackEl);
-
-        var clearEl = document.createElement("button");
-        clearEl.setAttribute("type", "submit");
-        clearEl.innerHTML = "Clear high Scores";
-        highScoreCardEl.appendChild(clearEl);
-
-        // for refresh page on button click
-        goBackEl.addEventListener("click", function() {
-        location.reload()
-        });
-
-        // for clear local storage on button click
-        clearEl.addEventListener("click", function() {
-            localStorage.clear();
-            tableEl.remove();
-        });
-        
-        
+        // call function to display high scores
+        viewHighScores();      
     });
+};
+
+
+// function for view high scores
+var viewHighScores = function () {
+    // if the quiz were completed in the current session, header and footer is already cleared
+    if(highScores.length === 0) {
+        // call function for clear header
+        clearHeader();
+        // call function for clear footer
+        clearFooter();
+    }
+    //debugger;
+    scoreCardEl.remove();
+    quizIntroEl.remove();
+    //quizCardEl.remove();
+
+    var highScoreCardEl = document.createElement("div");
+    highScoreCardEl.className = ".quiz-card";
+    var headEl = document.createElement("h3");
+    quizCardEl.appendChild(highScoreCardEl);
+    headEl.innerHTML = "High Scores";
+    highScoreCardEl.appendChild(headEl);
     
 
+    // create table element
+    var tableEl = document.createElement("table");
+    tableEl.setAttribute("id", "score-table");
+    highScoreCardEl.appendChild(tableEl);
+    
+    console.log(highScores);
+    for(var i = 0; i < highScores.length; i++) {
+        
+        var y = document.createElement("tr");
+        y.setAttribute("id", "score-tr");
+        tableEl.appendChild(y);
+    
+        var z = document.createElement("td");
+        z.innerHTML = highScores[i].thisName + " - " + highScores[i].thisScore;
+        y.appendChild(z);
+    }
+    // create buttons
+    var goBackEl = document.createElement("button");
+    goBackEl.setAttribute("type", "submit");
+    goBackEl.innerHTML = "Go back";
+    highScoreCardEl.appendChild(goBackEl);
+
+    var clearEl = document.createElement("button");
+    clearEl.setAttribute("type", "submit");
+    clearEl.innerHTML = "Clear high Scores";
+    highScoreCardEl.appendChild(clearEl);
+
+    // for refresh page on button click
+    goBackEl.addEventListener("click", function() {
+    location.reload()
+    });
+
+    // for clear local storage on button click
+    clearEl.addEventListener("click", function() {
+        localStorage.clear();
+        tableEl.remove();
+    });
+
 };
-var highScores = [];
 
 // function for local storage
 var scoreHistory = function(scoreObj) {
@@ -271,3 +298,5 @@ var timer = function(event) {
 quizIntroEl.addEventListener("click", startQuiz);
 // for starting timer
 quizIntroEl.addEventListener("click", timer);
+// for view high scores
+highScoreLinkEl.addEventListener("click", viewHighScores);
