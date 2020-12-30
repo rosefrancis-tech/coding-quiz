@@ -54,14 +54,12 @@ console.log(highScores.length);
 var startQuiz = function(event) {
     // clear screen
     quizIntroEl.remove(); 
-    // remove link to view high scores
-
+    
     // add elements for quiz
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
     quizContainer.setAttribute("onmousedown", "clearFooter()");
-    //quizContainer.setAttribute("onmouseup", "submitAnswer()");
-        
+            
     // add questions to elements
     if (questionNumber < myQuestions.length) {
              
@@ -79,10 +77,6 @@ var startQuiz = function(event) {
             
         }  
         // for submitting answers
-        debugger;
-        
-         //   quizContainer.addEventListener("mousedown", clearFooter); 
-        
         quizContainer.addEventListener("mouseup", submitAnswer); 
     }
     
@@ -165,19 +159,14 @@ var displayResults = function() {
 // function for view high scores
 var viewHighScores = function () {
     // if the quiz were completed in the current session, header and footer is already cleared
-    
-    console.log(highScores.length);
     if(highScores.length === 0) {
         // call function for clear header
         clearHeader();
         // call function for clear footer
         clearFooter();
     }
-    
     scoreCardEl.remove();
-    quizIntroEl.remove();
-    //quizCardEl.remove();
-
+    
     var highScoreCardEl = document.createElement("div");
     highScoreCardEl.className = ".quiz-card";
     var headEl = document.createElement("h3");
@@ -185,7 +174,6 @@ var viewHighScores = function () {
     headEl.innerHTML = "High Scores";
     highScoreCardEl.appendChild(headEl);
     
-
     // create table element
     var tableEl = document.createElement("table");
     tableEl.setAttribute("id", "score-table");
@@ -239,12 +227,9 @@ var scoreHistory = function(scoreObj) {
     if(savedScores) {
         highScores = savedScores;
     }
-    //debugger;
     highScores.push(scoreObj);
     var webScores = highScores;        
     localStorage.setItem("webScores", JSON.stringify(webScores));
-    
-    //return highScores;
 }
 };
 
@@ -255,39 +240,32 @@ var submitAnswer = function (event) {
     if (optionId === myQuestions[questionNumber].correctAnswer) {
         choice = "Correct!";
         score = score + 20;
-        //console.log(score);
     }
     else {
         choice = "Wrong!";
         counter = counter - 10;
-        //console.log(score);
     }
-    debugger;
     questionNumber++;
     // show answer
     displayAnswer(choice);
-    //quizContainer.setAttribute("onmousedown", "clearFooter()");
-    //options.setAttribute("onmouseup", "nextQuestion(questionNumber)");
-    
-   
+    // display next question   
     nextQuestion(questionNumber);
 };
 
 // function for display next question or game-over after last question
 var nextQuestion = function(questionNumber) {
-    // show answer
-    //displayAnswer(choice);
-     // if this is the last question of array
-     if (questionNumber === myQuestions.length) {
+    // when questions finish
+    if (questionNumber === myQuestions.length) {
         // set timer to zero
         counter = 0;
         console.log("All done!");
         // show final score
-        displayResults();     
+        displayResults();   
+        // flag to know results are displayed  
         flag = true; 
     }
+    // when questions are not finished
     else {
-        //clearFooter();
         // remove current question and options from screen
         quizContainer.remove();
         // show next question and options
@@ -326,9 +304,13 @@ var timer = function(event) {
     var startCountdown = setInterval(countdown,1000);
 };
 
+var spoilerAlert = function() {
+    alert("High Scores will be displayed when you submit your score!")
+};
+
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
 // for starting timer
 quizIntroEl.addEventListener("click", timer);
 // for view high scores
-//highScoreLinkEl.addEventListener("click", spoilerAlert);
+highScoreLinkEl.addEventListener("click", spoilerAlert);
