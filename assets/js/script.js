@@ -48,11 +48,13 @@ var counter = 30;
 var flag = false;
 var highScores = [];
 console.log(highScores);
+console.log(highScores.length);
 // function for starting quiz
 var startQuiz = function(event) {
     // clear screen
     quizIntroEl.remove(); 
-    
+    // remove link to view high scores
+
     // add elements for quiz
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
@@ -145,15 +147,17 @@ var displayResults = function() {
         scoreHistory(scoreObj);
         if(scoreObj.thisName){
         // call function to display high scores
-        viewHighScores(highScores);    
+        viewHighScores();    
         }  
     });
 };
 
 
 // function for view high scores
-var viewHighScores = function (highScores) {
+var viewHighScores = function () {
     // if the quiz were completed in the current session, header and footer is already cleared
+    debugger;
+    console.log(highScores.length);
     if(highScores.length === 0) {
         // call function for clear header
         clearHeader();
@@ -179,6 +183,18 @@ var viewHighScores = function (highScores) {
     highScoreCardEl.appendChild(tableEl);
     
     console.log(highScores);
+
+    // get item from local storage
+    var savedScores = localStorage.getItem("webScores");
+    savedScores = JSON.parse(savedScores);
+    if(savedScores) {
+        console.log("saved" + savedScores);
+        for(var k = 0; k < savedScores.length; k ++) {
+            highScores.push(savedScores[k]);
+        }
+    }
+
+    //create table rows
     for(var i = 0; i < highScores.length; i++) {
         
         var y = document.createElement("tr");
@@ -218,20 +234,20 @@ var scoreHistory = function(scoreObj) {
     scoreObj.thisName = document.querySelector("input[name='initial']").value;
     if(!scoreObj.thisName) {
         alert("Please enter your initials");
-        //debugger;
         return false;
     }
     else {
-    var savedScores = localStorage.getItem("webScores");
+    /*var savedScores = localStorage.getItem("webScores");
     savedScores = JSON.parse(savedScores);
     if(savedScores) {
         highScores = savedScores;
-    }
+    }*/
+    debugger;
     highScores.push(scoreObj);
     var webScores = highScores;        
     localStorage.setItem("webScores", JSON.stringify(webScores));
     
-    return highScores;
+    //return highScores;
 }
 };
 
