@@ -156,16 +156,18 @@ var displayResults = function() {
         goBackEl.setAttribute("type", "submit");
         goBackEl.innerHTML = "Go back";
         highScoreCardEl.appendChild(goBackEl);
-        // refresh page on button click
-        goBackEl.addEventListener("click", function() {
-        location.reload()
-        });
 
         var clearEl = document.createElement("button");
         clearEl.setAttribute("type", "submit");
         clearEl.innerHTML = "Clear high Scores";
         highScoreCardEl.appendChild(clearEl);
-        // clear local storage on button click
+
+        // for refresh page on button click
+        goBackEl.addEventListener("click", function() {
+        location.reload()
+        });
+
+        // for clear local storage on button click
         clearEl.addEventListener("click", function() {
             localStorage.clear();
             tableEl.remove();
