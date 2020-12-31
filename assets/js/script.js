@@ -6,7 +6,7 @@ var footerEl = document.querySelector("#message");
 var quizIntroEl = document.querySelector("#quiz-intro");
 
 var quizContainer = document.createElement("div");
-var quizQuest = document.createElement("h3");
+var quizQuest = document.createElement("h1");
 var options = document.createElement("button");
 var scoreCardEl = document.createElement("div");
 var highScoreLinkEl = document.querySelector("#high-scores");
@@ -62,7 +62,7 @@ var startQuiz = function(event) {
             
     // add questions to elements
     if (questionNumber < myQuestions.length) {
-             
+        quizQuest.className = ("quiz-quest");
         quizQuest.innerHTML = myQuestions[questionNumber].question;
         quizContainer.appendChild(quizQuest);
         // add option buttons to elements
@@ -313,6 +313,6 @@ var spoilerAlert = function() {
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
 // for starting timer
-quizIntroEl.addEventListener("click", timer);
+//quizIntroEl.addEventListener("click", timer);
 // for view high scores
 highScoreLinkEl.addEventListener("click", spoilerAlert);
