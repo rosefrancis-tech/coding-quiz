@@ -3,18 +3,27 @@
 }
 
 :root {
-    --primary: rgb(68, 28, 209);
-    --secondary: rgb(141, 120, 218);
+    --primary: rgb(46, 19, 145);
+    --secondary: rgb(159, 108, 172);
 }
 
 body {
     margin: 0;
     padding: 0;
-    
 }
+
+/* All buttons to hover */
+.quiz-card .quiz-intro .btn:hover,
+.option-btn:hover,
+.quiz-card .score-card button:hover,
+.highscore-card .goback-btn:hover,
+.highscore-card .clear-btn:hover {
+    background-color: var(--secondary);
+}
+
 /* Header style starts */
 header {
-    margin: 1rem;
+    margin: 2rem;
     font-size: 1rem;
     font-weight: 500;
 }
@@ -24,28 +33,43 @@ header #high-scores {
 }
 
 header .quiz-timer {
-float:right;
+    float:right;
 }
 /* Header style ends */
 
+/* Footer style starts */
+.message {
+    margin-left: 30%;
+    margin-top: 2rem;
+    width: 50%;
+    border-top: 2px solid rgb(56, 54, 54);
+    padding: 0.5rem;
+    text-align: left;
+    background-color: white;
+    opacity: 0.5;
+    font-size: x-large;
+    font-style: italic;
+}
+/* Footer style ends*/
 
-.quiz-card,
-.quiz-intro
-{
+/* Home page style starts */
+.quiz-card,                                         /*Parent div of all*/
+.quiz-intro {                                       
     text-align: center;
     margin-top: 3rem;
 }
-/* Home page style starts */
+
 .quiz-card .quiz-intro .quiz-intro-heading,
-.quiz-card .score-card h1 {
+.quiz-card .score-card h1,                          /*Result page heading*/
+.quiz-card .highscore-card h1 {                     /*High score page heading*/
     font-size: 2rem;
     margin-bottom: 0.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.quiz-card .quiz-intro p,
-.quiz-card .score-card p,
-.quiz-card .score-card label {
+.quiz-card .quiz-intro p,           
+.quiz-card .score-card p,                           /*Result page paragraph*/
+.quiz-card .score-card label {                      /*Result page label*/
     font-size: 1.1rem;
     font-weight: 500;
     margin-top: 0.25rem;
@@ -61,17 +85,12 @@ float:right;
     border-radius: 12px;
     text-align: center;
 }
-
-.quiz-card .quiz-intro .btn:hover,
-.option-btn:hover,
-.quiz-card .score-card button {
-    background-color: var(--secondary);
-}
 /* Home page style ends */
 
 /* Quiz page style starts */
-.quiz-card .quiz-container,
-.quiz-card .score-card {
+.quiz-card .quiz-container,                          
+.quiz-card .score-card,                              /*Result page div*/
+.quiz-card .highscore-card {                         /*High score page div*/
     margin-left: 30%;
     width: 60%;
     display: flex;
@@ -98,22 +117,7 @@ float:right;
 
 /* Quiz page style ends */
 
-/* Footer style starts */
-.message {
-    margin-left: 30%;
-    margin-top: 2rem;
-    width: 50%;
-    border-top: 2px solid rgb(56, 54, 54);
-    padding: 0.5rem;
-    text-align: left;
-    background-color: white;
-    opacity: 0.5;
-    font-size: x-large;
-    font-style: italic;
-}
-/* Footer style ends*/
-
-/* Display result style starts*/
+/* Result page style starts*/
 
 .quiz-card .score-card #nick-name {
     padding: 0.2rem;
@@ -131,29 +135,35 @@ float:right;
     border-radius: 12px;
     text-align: center;
 }
+/* Result page style ends*/
 
-
-/* Display result style ends*/
-.highscore-card {
-    
-}
+/* High Score page style starts*/
 .highscore-card #score-table {
-    width: 20%;
-        margin: auto auto auto 40%;
-        text-align: left;
-        overflow-x: auto;
+    width: 30%;
+    margin-bottom: 0.5rem;
+    text-align: left;
 }
 
-.highscore-card button {
-    
-}
- {
-        
-}
 #score-tr:nth-child(odd) {
     background-color: #b4abab;
 }
 
+.highscore-card .goback-btn,
+.highscore-card .clear-btn {
+    background-color: var(--primary);
+    color: white;
+    font-size: 1rem;
+    padding: 0.2rem;
+    margin: 0.25rem;
+    width: 10%;
+    border-radius: 12px;
+    text-align: center;
+}
 
+.highscore-card .clear-btn {
+    width: auto;
+    margin-left: 0.5rem;
+}
+/* High Score page style ends*/
 
 

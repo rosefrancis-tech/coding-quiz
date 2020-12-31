@@ -174,10 +174,11 @@ var viewHighScores = function () {
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
-    highScoreCardEl.className = ".highscore-card";
-    var headEl = document.createElement("h3");
+    highScoreCardEl.className = "highscore-card";
     quizCardEl.appendChild(highScoreCardEl);
-    headEl.innerHTML = "High Scores";
+
+    var headEl = document.createElement("h1");
+    headEl.innerHTML = "High scores";
     highScoreCardEl.appendChild(headEl);
     
     // create table element
@@ -197,15 +198,20 @@ var viewHighScores = function () {
         y.appendChild(z);
     }
     // create buttons
+    var highScoreButton = document.createElement("div");
+    highScoreCardEl.appendChild(highScoreButton);
+
     var goBackEl = document.createElement("button");
     goBackEl.setAttribute("type", "submit");
+    goBackEl.className ="goback-btn";
     goBackEl.innerHTML = "Go back";
-    highScoreCardEl.appendChild(goBackEl);
+    highScoreButton.appendChild(goBackEl);
 
     var clearEl = document.createElement("button");
     clearEl.setAttribute("type", "submit");
-    clearEl.innerHTML = "Clear high Scores";
-    highScoreCardEl.appendChild(clearEl);
+    clearEl.className ="clear-btn";
+    clearEl.innerHTML = "Clear high scores";
+    highScoreButton.appendChild(clearEl);
 
     // for refresh page on button click
     goBackEl.addEventListener("click", function() {
