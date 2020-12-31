@@ -2,12 +2,12 @@
 var body = document.querySelector("#body");
 var quizCardEl  = document.querySelector("#quiz-card");
 var headerEl = document.querySelector("#header");
-var footerEl = document.querySelector("#message");
 var quizIntroEl = document.querySelector("#quiz-intro");
 
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h1");
 var options = document.createElement("button");
+var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
 var highScoreLinkEl = document.querySelector("#high-scores");
 
@@ -86,6 +86,7 @@ var startQuiz = function(event) {
 var displayAnswer = function(choice) {
     console.log(choice);
     body.appendChild(footerEl);
+    footerEl.className = "message";
     footerEl.textContent = choice;
    
 };
