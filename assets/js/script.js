@@ -3,13 +3,15 @@ var body = document.querySelector("#body");
 var quizCardEl  = document.querySelector("#quiz-card");
 var headerEl = document.querySelector("#header");
 var quizIntroEl = document.querySelector("#quiz-intro");
+var highScoreLinkEl = document.querySelector("#high-scores");
 
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h1");
 var options = document.createElement("button");
 var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
-var highScoreLinkEl = document.querySelector("#high-scores");
+
+
 
 var myQuestions = [
     {
@@ -106,8 +108,9 @@ var clearHeader = function () {
 var displayResults = function() {
     quizContainer.remove();
         
-    scoreCardEl.className = ".quiz-card";
-    var scoreEl1 = document.createElement("h3");
+    scoreCardEl.className = "score-card";
+    var scoreEl1 = document.createElement("h1");
+    /*scoreEl1.className = "score-card";*/
     quizCardEl.appendChild(scoreCardEl);
     scoreEl1.innerHTML = "All done!";
     scoreCardEl.appendChild(scoreEl1);
@@ -115,14 +118,14 @@ var displayResults = function() {
     var scoreEl2 = document.createElement("p");
     scoreEl2.innerHTML = "Your final score is " + score +".";
     scoreCardEl.appendChild(scoreEl2);
-/*
-    var formEl = document.createElement("form");
+
+    var formEl = document.createElement("section");
     scoreCardEl.appendChild(formEl);
-*/
+
     var scoreEl3 = document.createElement("label");
     scoreEl3.setAttribute("for", "nick-name");
     scoreEl3.innerHTML = "Enter Initials: ";
-    scoreCardEl.appendChild(scoreEl3);
+    formEl.appendChild(scoreEl3);
     
     var scoreEl4 = document.createElement("input");
     scoreEl4.setAttribute("type", "text");
@@ -130,13 +133,13 @@ var displayResults = function() {
     scoreEl4.setAttribute("name", "initial");
     scoreEl4.setAttribute("value", "");
     //scoreEl4.setAttribute("required", "");
-    scoreCardEl.appendChild(scoreEl4);
+    formEl.appendChild(scoreEl4);
 
     var scoreEl5 = document.createElement("button");
     scoreEl5.setAttribute("type", "button");
     scoreEl5.setAttribute("onmousedown", "clearFooter()");
     scoreEl5.innerHTML = "Submit";
-    scoreCardEl.appendChild(scoreEl5);
+    formEl.appendChild(scoreEl5);
     
     var scoreObj = {
         thisName: scoreEl4.value,
@@ -171,7 +174,7 @@ var viewHighScores = function () {
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
-    highScoreCardEl.className = ".quiz-card";
+    highScoreCardEl.className = ".highscore-card";
     var headEl = document.createElement("h3");
     quizCardEl.appendChild(highScoreCardEl);
     headEl.innerHTML = "High Scores";
