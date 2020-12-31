@@ -323,6 +323,6 @@ var spoilerAlert = function() {
 // for Start Quiz button
 quizIntroEl.addEventListener("click", startQuiz);
 // for starting timer
-//quizIntroEl.addEventListener("click", timer);
+quizIntroEl.addEventListener("click", timer);
 // for view high scores
 highScoreLinkEl.addEventListener("click", spoilerAlert);
