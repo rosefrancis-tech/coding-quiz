@@ -95,7 +95,7 @@ var displayAnswer = function(choice) {
 
 // function for clear footer
 var clearFooter = function () {
-    debugger;
+    //debugger;
     footerEl.remove();
 };
 
@@ -199,6 +199,7 @@ var viewHighScores = function () {
     }
     // create buttons
     var highScoreButton = document.createElement("div");
+    highScoreButton.className = "button-group"
     highScoreCardEl.appendChild(highScoreButton);
 
     var goBackEl = document.createElement("button");

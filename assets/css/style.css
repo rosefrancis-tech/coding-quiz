@@ -39,8 +39,7 @@ header .quiz-timer {
 
 /* Footer style starts */
 .message {
-    margin-left: 30%;
-    margin-top: 2rem;
+    margin: 2rem auto auto auto;
     width: 50%;
     border-top: 2px solid rgb(56, 54, 54);
     padding: 0.5rem;
@@ -91,10 +90,10 @@ header .quiz-timer {
 .quiz-card .quiz-container,                          
 .quiz-card .score-card,                              /*Result page div*/
 .quiz-card .highscore-card {                         /*High score page div*/
-    margin-left: 30%;
-    width: 60%;
+    margin: auto;
+    width: 50%;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     flex-wrap: nowrap;
     text-align: left;
     
@@ -132,15 +131,15 @@ header .quiz-timer {
     font-size: 1rem;
     padding: 0.2rem;
     margin: 0.25rem;
-    width: 10%;
+    width: auto;
     border-radius: 12px;
     text-align: center;
 }
 /* Result page style ends*/
 
 /* High Score page style starts*/
-.highscore-card #score-table {
-    width: 30%;
+.quiz-card .highscore-card #score-table {
+    width: 25%;
     margin-bottom: 0.5rem;
     text-align: left;
 }
@@ -156,7 +155,7 @@ header .quiz-timer {
     font-size: 1rem;
     padding: 0.2rem;
     margin: 0.25rem;
-    width: 10%;
+    width: auto;
     border-radius: 12px;
     text-align: center;
 }
@@ -167,4 +166,32 @@ header .quiz-timer {
 }
 /* High Score page style ends*/
 
+@media screen and (max-width:600px) {
 
+    .quiz-card .quiz-intro {
+        padding: 2rem;
+    }
+    .quiz-card .quiz-container {                         
+        margin: auto;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        text-align: left;
+    }
+    .quiz-card .highscore-card {
+        width: 60%;
+    }
+    .quiz-card .highscore-card #score-table {
+        width: 50%;
+        display:block;
+        overflow:auto;
+        height:300px;
+    }
+    .quiz-card .highscore-card .button-group {
+        display: flex;
+    }
+
+    
+
+}
