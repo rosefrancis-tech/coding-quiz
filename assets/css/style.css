@@ -122,8 +122,9 @@ header .quiz-timer {
 .quiz-card .score-card #nick-name {
     padding: 0.2rem;
 }
-.quiz-card .score-card #nick-name :focus {
-    border: 2px solid red;
+.quiz-card .score-card #nick-name:focus {
+    outline: 2px solid var(--primary);
+    border: none;
 }
 .quiz-card .score-card button{
     background-color: var(--primary);
