@@ -12,15 +12,33 @@ var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
 
 
-
 var myQuestions = [
+    {
+        question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
+        answers: [
+          "if i <> 5",
+          "if (i != 5)",
+          "if (i <> 5)",
+          "if i =! 5 then"
+        ],
+        correctAnswer: "btnid1"
+    },
+    {
+        question: "How do you write 'Hello World' in an alert box?",
+        answers: [
+          "alert('Hello World')",
+          "msgBox('Hello World')",
+          "alertBox('Hello World')",
+          "msg('Hello World')"
+        ],
+        correctAnswer: "btnid0"
+    },
     {
       question: "Who invented JavaScript?",
       answers: [
         "Douglas Crockford",
         "Sheryl Sandberg",
-        "Brendan Eich",
-        "Bill Gates"
+        "Brendan Eich"
       ],
       correctAnswer: "btnid2"
     },
@@ -68,20 +86,18 @@ var startQuiz = function(event) {
         quizQuest.innerHTML = myQuestions[questionNumber].question;
         quizContainer.appendChild(quizQuest);
         // add option buttons to elements
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < myQuestions[j].answers.length; j++) {
             options = document.createElement("button");
             options.className = "option-btn";
             options.innerHTML = myQuestions[questionNumber].answers[j];
             options.setAttribute("id", "btnid" + j);
             //options.setAttribute("onmousedown", "clearFooter()");
             quizContainer.appendChild(options);
-            quizCardEl.appendChild(quizContainer);
-            
+            quizCardEl.appendChild(quizContainer);   
         }  
         // for submitting answers
         quizContainer.addEventListener("mouseup", submitAnswer); 
     }
-    
 };
 
 // function for displaying the answer in footer
@@ -89,13 +105,11 @@ var displayAnswer = function(choice) {
     console.log(choice);
     body.appendChild(footerEl);
     footerEl.className = "message";
-    footerEl.textContent = choice;
-   
+    footerEl.textContent = choice; 
 };
 
 // function for clear footer
 var clearFooter = function () {
-    //debugger;
     footerEl.remove();
 };
 

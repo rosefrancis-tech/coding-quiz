@@ -44,7 +44,7 @@ header .quiz-timer {
     border-top: 2px solid rgb(56, 54, 54);
     padding: 0.5rem;
     text-align: left;
-    background-color: white;
+    /*background-color: white;*/
     opacity: 0.5;
     font-size: x-large;
     font-style: italic;
@@ -103,7 +103,7 @@ header .quiz-timer {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.option-btn {
+.quiz-card .quiz-container .option-btn {
     background-color: var(--primary);
     color: white;
     border-radius: 12px;
@@ -113,18 +113,18 @@ header .quiz-timer {
     font-size: 1rem;
     padding: 0.5rem;
 }
-
 /* Quiz page style ends */
 
 /* Result page style starts*/
-
 .quiz-card .score-card #nick-name {
     padding: 0.2rem;
 }
+
 .quiz-card .score-card #nick-name:focus {
     outline: 2px solid var(--primary);
     border: none;
 }
+
 .quiz-card .score-card button{
     background-color: var(--primary);
     color: white;
@@ -139,9 +139,16 @@ header .quiz-timer {
 
 /* High Score page style starts*/
 .quiz-card .highscore-card #score-table {
-    width: 25%;
     margin-bottom: 0.5rem;
     text-align: left;
+    display:block;
+    overflow:auto;
+    height:50px;
+    width: 40%;
+}
+
+.quiz-card .highscore-card #score-table #score-tr {
+    display: block;
 }
 
 #score-tr:nth-child(odd) {
@@ -173,25 +180,34 @@ header .quiz-timer {
     }
     .quiz-card .quiz-container {                         
         margin: auto;
-        width: 75%;
+        width: 80%;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         text-align: left;
     }
+    .quiz-card .score-card button{
+        margin-left: 0;
+    }
     .quiz-card .highscore-card {
         width: 60%;
     }
+    
     .quiz-card .highscore-card #score-table {
-        width: 50%;
-        display:block;
-        overflow:auto;
-        height:300px;
+        width: 100%;
     }
     .quiz-card .highscore-card .button-group {
         display: flex;
     }
+}
 
-    
+@media screen and (max-width:600px) {
+
+    .quiz-card .quiz-container .option-btn {
+        width: auto;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
 
 }
