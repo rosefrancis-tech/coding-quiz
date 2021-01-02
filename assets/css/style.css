@@ -14,7 +14,7 @@ body {
 
 /* All buttons to hover */
 .quiz-card .quiz-intro .btn:hover,
-.option-btn:hover,
+.quiz-card .quiz-container .optionList .option-btn:hover,
 .quiz-card .score-card button:hover,
 .highscore-card .goback-btn:hover,
 .highscore-card .clear-btn:hover {
@@ -103,12 +103,31 @@ header .quiz-timer {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.quiz-card .quiz-container .option-btn {
+.quiz-card .quiz-container .optionList {
+    padding-inline-start: 0;
+    /*display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: auto;*/
+}
+/*
+.quiz-card .quiz-container ul .option-btn {
     background-color: var(--primary);
     color: white;
     border-radius: 12px;
     text-align: left;
     width: 30%;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+}*/
+.quiz-card .quiz-container .optionList .option-btn {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 12px;
+    text-align: left;
+    width:fit-content;
+    min-width: initial;
     margin-bottom: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem;
@@ -178,6 +197,7 @@ header .quiz-timer {
     .quiz-card .quiz-intro {
         padding: 2rem;
     }
+
     .quiz-card .quiz-container {                         
         margin: auto;
         width: 80%;
@@ -186,9 +206,11 @@ header .quiz-timer {
         flex-wrap: nowrap;
         text-align: left;
     }
+
     .quiz-card .score-card button{
         margin-left: 0;
     }
+
     .quiz-card .highscore-card {
         width: 60%;
     }
@@ -196,18 +218,18 @@ header .quiz-timer {
     .quiz-card .highscore-card #score-table {
         width: 100%;
     }
+
     .quiz-card .highscore-card .button-group {
         display: flex;
     }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:1000px) {
 
-    .quiz-card .quiz-container .option-btn {
+    .quiz-card .quiz-container .optionList .option-btn {
         width: auto;
         margin-bottom: 1rem;
         font-size: 1rem;
         padding: 0.5rem;
     }
-
 }

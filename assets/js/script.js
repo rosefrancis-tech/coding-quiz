@@ -7,7 +7,7 @@ var highScoreLinkEl = document.querySelector("#high-scores");
 
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h1");
-var options = document.createElement("button");
+//var options = document.createElement("button");
 var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
 
@@ -16,7 +16,7 @@ var myQuestions = [
     {
         question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
         answers: [
-          "if i <> 5",
+          "if i <> 55555555555555555555555555555555555555555long",
           "if (i != 5)",
           "if (i <> 5)",
           "if i =! 5 then"
@@ -26,10 +26,10 @@ var myQuestions = [
     {
         question: "How do you write 'Hello World' in an alert box?",
         answers: [
-          "alert('Hello World')",
-          "msgBox('Hello World')",
-          "alertBox('Hello World')",
-          "msg('Hello World')"
+          "1. alert('Hello World')",
+          "2. msgBox('Hello World')",
+          "3. alertBox('Hello World')",
+          "4. msg('Hello World')"
         ],
         correctAnswer: "btnid0"
     },
@@ -38,7 +38,8 @@ var myQuestions = [
       answers: [
         "Douglas Crockford",
         "Sheryl Sandberg",
-        "Brendan Eich"
+        "Brendan Eich",
+        "Chris Beard"
       ],
       correctAnswer: "btnid2"
     },
@@ -79,22 +80,33 @@ var startQuiz = function(event) {
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
     quizContainer.setAttribute("onmousedown", "clearFooter()");
-            
+    quizCardEl.appendChild(quizContainer);         
     // add questions to elements
     if (questionNumber < myQuestions.length) {
         quizQuest.className = ("quiz-quest");
         quizQuest.innerHTML = myQuestions[questionNumber].question;
         quizContainer.appendChild(quizQuest);
-        // add option buttons to elements
-        for (var j = 0; j < myQuestions[j].answers.length; j++) {
-            options = document.createElement("button");
+        // add answer options
+       /* for (var j = 0; j < myQuestions[j].answers.length; j++) {
+            var options = document.createElement("button");
             options.className = "option-btn";
             options.innerHTML = myQuestions[questionNumber].answers[j];
             options.setAttribute("id", "btnid" + j);
             //options.setAttribute("onmousedown", "clearFooter()");
-            quizContainer.appendChild(options);
-            quizCardEl.appendChild(quizContainer);   
+            quizContainer.appendChild(options);     
+        }  */
+        var list = document.createElement("ul");
+        list.className = "optionList";
+        quizContainer.appendChild(list); 
+        for (var j = 0; j < myQuestions[j].answers.length; j++) {
+            var options = document.createElement("li");
+            options.className = "option-btn";
+            options.innerHTML = myQuestions[questionNumber].answers[j];
+            options.setAttribute("id", "btnid" + j);
+            //options.setAttribute("onmousedown", "clearFooter()");
+            list.appendChild(options);    
         }  
+        
         // for submitting answers
         quizContainer.addEventListener("mouseup", submitAnswer); 
     }
