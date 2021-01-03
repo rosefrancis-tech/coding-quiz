@@ -4,14 +4,10 @@ var quizCardEl  = document.querySelector("#quiz-card");
 var headerEl = document.querySelector("#header");
 var quizIntroEl = document.querySelector("#quiz-intro");
 var highScoreLinkEl = document.querySelector("#high-scores");
-
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h1");
-//var options = document.createElement("button");
 var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
-
-
 var myQuestions = [
     {
         question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
@@ -103,12 +99,11 @@ var startQuiz = function(event) {
             options.className = "option-btn";
             options.innerHTML = myQuestions[questionNumber].answers[j];
             options.setAttribute("id", "btnid" + j);
-            //options.setAttribute("onmousedown", "clearFooter()");
             list.appendChild(options);    
         }  
         
         // for submitting answers
-        quizContainer.addEventListener("mouseup", submitAnswer); 
+        list.addEventListener("mouseup", submitAnswer); 
     }
 };
 
@@ -136,7 +131,6 @@ var displayResults = function() {
         
     scoreCardEl.className = "score-card";
     var scoreEl1 = document.createElement("h1");
-    /*scoreEl1.className = "score-card";*/
     quizCardEl.appendChild(scoreCardEl);
     scoreEl1.innerHTML = "All done!";
     scoreCardEl.appendChild(scoreEl1);
@@ -158,7 +152,6 @@ var displayResults = function() {
     scoreEl4.setAttribute("id", "nick-name");
     scoreEl4.setAttribute("name", "initial");
     scoreEl4.setAttribute("value", "");
-    //scoreEl4.setAttribute("required", "");
     formEl.appendChild(scoreEl4);
 
     var scoreEl5 = document.createElement("button");
@@ -176,7 +169,6 @@ var displayResults = function() {
         
         // call function for clear header
         clearHeader();
-
         // call function for local storage
         scoreHistory(scoreObj);
         if(scoreObj.thisName){
@@ -188,7 +180,7 @@ var displayResults = function() {
 
 // function for view high scores
 var viewHighScores = function () {
-    // FUTURE ENHANCEMENT:
+    // Code for FUTURE ENHANCEMENT:
     // if the quiz were completed in the current session, header and footer is already cleared
     // so clear header and footer, for viewing high score before attending quiz
     /*if(highScores.length === 0) {
@@ -250,7 +242,6 @@ var viewHighScores = function () {
         localStorage.clear();
         tableEl.remove();
     });
-
 };
 
 // function for local storage
