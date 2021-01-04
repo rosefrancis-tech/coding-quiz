@@ -105,10 +105,11 @@ header .quiz-timer {
 
 .quiz-card .quiz-container .optionList {
     padding-inline-start: 0;
-    /*display: flex;
+    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    overflow: auto;*/
+    width:fit-content;
+    justify-content: flex-start;
 }
 /*
 .quiz-card .quiz-container ul .option-btn {
@@ -126,11 +127,15 @@ header .quiz-timer {
     color: white;
     border-radius: 12px;
     text-align: left;
-    width:fit-content;
-    min-width: initial;
     margin-bottom: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem;
+    /*width:fit-content;*/
+    /*min-width: initial;*/
+    flex-basis: auto;
+    flex-grow: 1;
+    align-content: stretch;
+    
 }
 /* Quiz page style ends */
 
@@ -223,7 +228,7 @@ header .quiz-timer {
         display: flex;
     }
 }
-
+/*
 @media screen and (max-width:1000px) {
 
     .quiz-card .quiz-container .optionList .option-btn {
@@ -232,4 +237,4 @@ header .quiz-timer {
         font-size: 1rem;
         padding: 0.5rem;
     }
-}
+}*/

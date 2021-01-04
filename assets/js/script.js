@@ -3,6 +3,7 @@ var body = document.querySelector("#body");
 var quizCardEl  = document.querySelector("#quiz-card");
 var headerEl = document.querySelector("#header");
 var quizIntroEl = document.querySelector("#quiz-intro");
+var startBtnEl = document.querySelector(".btn");
 var highScoreLinkEl = document.querySelector("#high-scores");
 var quizContainer = document.createElement("div");
 var quizQuest = document.createElement("h1");
@@ -12,7 +13,7 @@ var myQuestions = [
     {
         question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
         answers: [
-          "if i <> 55555555555555555555555555555555555555555long",
+          "if i <> 5",
           "if (i != 5)",
           "if (i <> 5)",
           "if i =! 5 then"
@@ -91,11 +92,11 @@ var startQuiz = function(event) {
             //options.setAttribute("onmousedown", "clearFooter()");
             quizContainer.appendChild(options);     
         }  */
-        var list = document.createElement("ul");
+        var list = document.createElement("div");
         list.className = "optionList";
         quizContainer.appendChild(list); 
         for (var j = 0; j < myQuestions[j].answers.length; j++) {
-            var options = document.createElement("li");
+            var options = document.createElement("div");
             options.className = "option-btn";
             options.innerHTML = myQuestions[questionNumber].answers[j];
             options.setAttribute("id", "btnid" + j);
@@ -265,21 +266,26 @@ var scoreHistory = function(scoreObj) {
 
 // function for checking answers and calculating scores
 var submitAnswer = function (event) {
-    
-   var optionId = event.target.id;
-    if (optionId === myQuestions[questionNumber].correctAnswer) {
-        choice = "Correct!";
-        score = score + 20;
+   // execute function if only clicked on any of the options 
+   if(event.target.matches(".option-btn")) {
+        var optionId = event.target.id;
+        // condition for verifying the right and wrong choices
+        if (optionId === myQuestions[questionNumber].correctAnswer) {
+            choice = "Correct!";
+            // add score by 20 for correct choice
+            score = score + 20;
+        }
+        else {
+            choice = "Wrong!";
+            // reduce time by 10 seconds for wrong choice
+            counter = counter - 10;
+        }
+        questionNumber++;
+        // show answer
+        displayAnswer(choice);
+        // display next question   
+        nextQuestion(questionNumber);
     }
-    else {
-        choice = "Wrong!";
-        counter = counter - 10;
-    }
-    questionNumber++;
-    // show answer
-    displayAnswer(choice);
-    // display next question   
-    nextQuestion(questionNumber);
 };
 
 // function for either display next question or game-over when all questions answered
@@ -339,8 +345,8 @@ var spoilerAlert = function() {
 };
 
 // for Start Quiz button
-quizIntroEl.addEventListener("click", startQuiz);
+startBtnEl.addEventListener("click", startQuiz);
 // for starting timer
-quizIntroEl.addEventListener("click", timer);
+startBtnEl.addEventListener("click", timer);
 // for view high scores
 highScoreLinkEl.addEventListener("click", spoilerAlert);
