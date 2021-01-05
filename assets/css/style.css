@@ -12,7 +12,39 @@ body {
     padding: 0;
 }
 
-/* All buttons to hover */
+/* Buttons style starts*/
+
+.quiz-card .quiz-intro .btn,
+.quiz-card .score-card button,                      /* Result page button*/
+.highscore-card .goback-btn,                        /* Highscore page Go-back button*/
+.highscore-card .clear-btn {                        /* Highscore page Clear-high-scores button*/  
+    outline: none;  
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    margin: 0.25rem;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.quiz-card .score-card button,
+.highscore-card .goback-btn,
+.highscore-card .clear-btn {
+    padding: 0.35rem;
+    font-size: 1rem;
+}
+
+.highscore-card .goback-btn {
+    margin-left: 0;
+}
+
+.highscore-card .clear-btn {
+    width: auto;
+    margin-left: 0.5rem;
+}
+
 .quiz-card .quiz-intro .btn:hover,
 .quiz-card .quiz-container .optionList .option-btn:hover,
 .quiz-card .score-card button:hover,
@@ -20,6 +52,7 @@ body {
 .highscore-card .clear-btn:hover {
     background-color: var(--secondary);
 }
+/* Buttons style ends*/
 
 /* Header style starts */
 header {
@@ -74,16 +107,6 @@ header .quiz-timer {
     margin-top: 0.25rem;
     
 }
-
-.quiz-card .quiz-intro .btn {
-    background-color: var(--primary);
-    color: white;
-    margin: 0.25rem;
-    padding: 0.5rem;
-    font-size: 1.25rem;
-    border-radius: 12px;
-    text-align: center;
-}
 /* Home page style ends */
 
 /* Quiz page style starts */
@@ -108,20 +131,10 @@ header .quiz-timer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width:fit-content;
+    width: fit-content;
     justify-content: flex-start;
 }
-/*
-.quiz-card .quiz-container ul .option-btn {
-    background-color: var(--primary);
-    color: white;
-    border-radius: 12px;
-    text-align: left;
-    width: 30%;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem;
-}*/
+
 .quiz-card .quiz-container .optionList .option-btn {
     background-color: var(--primary);
     color: white;
@@ -130,8 +143,6 @@ header .quiz-timer {
     margin-bottom: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem;
-    /*width:fit-content;*/
-    /*min-width: initial;*/
     flex-basis: auto;
     flex-grow: 1;
     align-content: stretch;
@@ -148,26 +159,15 @@ header .quiz-timer {
     outline: 2px solid var(--primary);
     border: none;
 }
-
-.quiz-card .score-card button{
-    background-color: var(--primary);
-    color: white;
-    font-size: 1rem;
-    padding: 0.2rem;
-    margin: 0.25rem;
-    width: auto;
-    border-radius: 12px;
-    text-align: center;
-}
 /* Result page style ends*/
 
 /* High Score page style starts*/
 .quiz-card .highscore-card #score-table {
     margin-bottom: 0.5rem;
     text-align: left;
-    display:block;
-    overflow:auto;
-    height:50px;
+    display: block;
+    overflow: auto;
+    height: 50px;
     width: 40%;
 }
 
@@ -179,22 +179,7 @@ header .quiz-timer {
     background-color: #b4abab;
 }
 
-.highscore-card .goback-btn,
-.highscore-card .clear-btn {
-    background-color: var(--primary);
-    color: white;
-    font-size: 1rem;
-    padding: 0.2rem;
-    margin: 0.25rem;
-    width: auto;
-    border-radius: 12px;
-    text-align: center;
-}
 
-.highscore-card .clear-btn {
-    width: auto;
-    margin-left: 0.5rem;
-}
 /* High Score page style ends*/
 
 @media screen and (max-width:600px) {
@@ -212,10 +197,6 @@ header .quiz-timer {
         text-align: left;
     }
 
-    .quiz-card .score-card button{
-        margin-left: 0;
-    }
-
     .quiz-card .highscore-card {
         width: 60%;
     }
@@ -228,13 +209,3 @@ header .quiz-timer {
         display: flex;
     }
 }
-/*
-@media screen and (max-width:1000px) {
-
-    .quiz-card .quiz-container .optionList .option-btn {
-        width: auto;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        padding: 0.5rem;
-    }
-}*/
