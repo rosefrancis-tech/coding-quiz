@@ -13,10 +13,10 @@ var myQuestions = [
     {
         question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
         answers: [
-          "if i <> 5",
-          "if (i != 5)",
-          "if (i <> 5)",
-          "if i =! 5 then"
+          "1. if i <> 5",
+          "2. if (i != 5)",
+          "3. if (i <> 5)",
+          "4. if i =! 5 then"
         ],
         correctAnswer: "btnid1"
     },
@@ -33,30 +33,30 @@ var myQuestions = [
     {
       question: "Who invented JavaScript?",
       answers: [
-        "Douglas Crockford",
-        "Sheryl Sandberg",
-        "Brendan Eich",
-        "Chris Beard"
+        "1. Douglas Crockford",
+        "2. Sheryl Sandberg",
+        "3. Brendan Eich",
+        "4. Chris Beard"
       ],
       correctAnswer: "btnid2"
     },
     {
       question: "Which one of these is a JavaScript package manager?",
       answers: [
-        "Node.js",
-        "TypeScript",
-        "npm",
-        "JSON"
+        "1. Node.js",
+        "2. TypeScript",
+        "3. npm",
+        "4. JSON"
       ],
       correctAnswer: "btnid2"
     },
     {
       question: "Which tool can you use to ensure code quality?",
       answers: [
-        "Angular",
-        "jQuery",
-        "RequireJS",
-        "ESLint"
+        "1. Angular",
+        "2. jQuery",
+        "3. RequireJS",
+        "4. ESLint"
       ],
       correctAnswer: "btnid3"
     }
@@ -72,7 +72,6 @@ var highScores = [];
 var startQuiz = function(event) {
     // clear screen
     quizIntroEl.remove(); 
-    
     // add elements for quiz
     quizContainer = document.createElement("div");
     quizContainer.className = ("quiz-container");
@@ -84,14 +83,6 @@ var startQuiz = function(event) {
         quizQuest.innerHTML = myQuestions[questionNumber].question;
         quizContainer.appendChild(quizQuest);
         // add answer options
-       /* for (var j = 0; j < myQuestions[j].answers.length; j++) {
-            var options = document.createElement("button");
-            options.className = "option-btn";
-            options.innerHTML = myQuestions[questionNumber].answers[j];
-            options.setAttribute("id", "btnid" + j);
-            //options.setAttribute("onmousedown", "clearFooter()");
-            quizContainer.appendChild(options);     
-        }  */
         var list = document.createElement("div");
         list.className = "optionList";
         quizContainer.appendChild(list); 
@@ -102,7 +93,6 @@ var startQuiz = function(event) {
             options.setAttribute("id", "btnid" + j);
             list.appendChild(options);    
         }  
-        
         // for submitting answers
         list.addEventListener("mouseup", submitAnswer); 
     }
@@ -160,36 +150,24 @@ var displayResults = function() {
     scoreEl5.setAttribute("onmousedown", "clearFooter()");
     scoreEl5.innerHTML = "Submit";
     formEl.appendChild(scoreEl5);
-    
+    // Current initial and score is stored as object
     var scoreObj = {
         thisName: scoreEl4.value,
         thisScore: score
     };
-    
+    // Event listener for submitting scores and initials
     scoreEl5.addEventListener("click", function() {
-        
         // call function for clear header
         clearHeader();
-        // call function for local storage
+        // call function for retrieve and save with local storage
         scoreHistory(scoreObj);
-        
         // call function to display high scores
-        viewHighScores();    
-        
+        viewHighScores();     
     });
 };
 
 // function for view high scores
 var viewHighScores = function () {
-    // Code for FUTURE ENHANCEMENT:
-    // if the quiz were completed in the current session, header and footer is already cleared
-    // so clear header and footer, for viewing high score before attending quiz
-    /*if(highScores.length === 0) {
-        // call function for clear header
-        clearHeader();
-        // call function for clear footer
-        clearFooter();
-    }*/
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
@@ -248,7 +226,7 @@ var viewHighScores = function () {
 // function for local storage
 var scoreHistory = function(scoreObj) {
     // give the initial the input value from the browser
-    scoreObj.thisName = document.querySelector("input[name='initial']").value.toLowerCase();
+    scoreObj.thisName = document.querySelector("input[name='initial']").value.toUpperCase();
     debugger;
     // condition when no initial is entered
     if(!scoreObj.thisName) {
@@ -263,11 +241,11 @@ var scoreHistory = function(scoreObj) {
         var isExist = false;
         var previousScore = 0;
         var previousIndex = 0;
-        // condition when there is previous values
+        // condition when there is previous value saved in local storage
         if(savedScores) {
             // loop for checking all elements of local storage
             for (var l = 0; l < savedScores.length; l++){
-                // condition when there is previous score for user with same initial
+                // condition to find any previous score for user with same initial
                 if(savedScores[l].thisName === scoreObj.thisName) {
                     isExist = true;
                     previousScore = savedScores[l].thisScore;
@@ -275,6 +253,7 @@ var scoreHistory = function(scoreObj) {
                     break;
                 }
             }
+            // Case 1 of 3: condition when there is a previous score for the current initial
             if (isExist === true) {
                 // compare and get the highest score from the current and saved values
                 var highestValue = Math.max(previousScore, scoreObj.thisScore);
@@ -286,13 +265,13 @@ var scoreHistory = function(scoreObj) {
                 savedScores.splice(previousIndex, 1, modifiedScore);
                 highScores = savedScores;
             }
-            // when there is no previous score for the current initial
+            // Case 2 of 3: condition when there is no previous score for the current initial
             else {
                 highScores = savedScores;
                 highScores.push(scoreObj);  
             } 
         }
-        // condition for no saved scores
+        // Case 3 of 3: condition for no saved scores
         else {
             highScores.push(scoreObj);
         }
@@ -377,6 +356,7 @@ var timer = function(event) {
     // start countdown timer
     var startCountdown = setInterval(countdown,1000);
 };
+
 // function for view scores from other pages
 var spoilerAlert = function() {
     alert("High Scores will be displayed when you submit your score!");
