@@ -253,15 +253,16 @@ var scoreHistory = function(scoreObj) {
         return false;
     }
     else {
-    var savedScores = localStorage.getItem("webScores");
-    savedScores = JSON.parse(savedScores);
-    if(savedScores) {
-        highScores = savedScores;
+        var savedScores = localStorage.getItem("webScores");
+        savedScores = JSON.parse(savedScores);
+        console.log(savedScores);
+        if(savedScores) {
+            highScores = savedScores;
+        }
+        highScores.push(scoreObj);
+        var webScores = highScores;        
+        localStorage.setItem("webScores", JSON.stringify(webScores));
     }
-    highScores.push(scoreObj);
-    var webScores = highScores;        
-    localStorage.setItem("webScores", JSON.stringify(webScores));
-}
 };
 
 // function for checking answers and calculating scores
