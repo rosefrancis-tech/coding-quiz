@@ -157,17 +157,28 @@ var displayResults = function() {
     };
     // Event listener for submitting scores and initials
     scoreEl5.addEventListener("click", function() {
-        // call function for clear header
-        clearHeader();
+        
+        // give the initial the input value from the browser
+        scoreObj.thisName = document.querySelector("input[name='initial']").value.toUpperCase();
+    
+        // condition when no initial is entered
+        if(!scoreObj.thisName) {
+            alert("Please enter your initials");
+            //return false;
+        }
+        else {
         // call function for retrieve and save with local storage
         scoreHistory(scoreObj);
-        // call function to display high scores
+        // call function to display high scores list
         viewHighScores();     
+        }
     });
 };
 
 // function for view high scores
 var viewHighScores = function () {
+   
+    clearHeader();
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
@@ -225,15 +236,7 @@ var viewHighScores = function () {
 
 // function for local storage
 var scoreHistory = function(scoreObj) {
-    // give the initial the input value from the browser
-    scoreObj.thisName = document.querySelector("input[name='initial']").value.toUpperCase();
-    debugger;
-    // condition when no initial is entered
-    if(!scoreObj.thisName) {
-        alert("Please enter your initials");
-        return false;
-    }
-    else {
+    
         // get values from local storage
         var savedScores = localStorage.getItem("webScores");
         savedScores = JSON.parse(savedScores);
@@ -278,7 +281,6 @@ var scoreHistory = function(scoreObj) {
         // saving into local storage
         var webScores = highScores;
         localStorage.setItem("webScores", JSON.stringify(webScores));
-    }
 };
 
 // function for checking answers and calculating scores
