@@ -172,10 +172,10 @@ var displayResults = function() {
         clearHeader();
         // call function for local storage
         scoreHistory(scoreObj);
-        if(scoreObj.thisName){
+        
         // call function to display high scores
         viewHighScores();    
-        }  
+        
     });
 };
 
@@ -248,19 +248,56 @@ var viewHighScores = function () {
 // function for local storage
 var scoreHistory = function(scoreObj) {
     scoreObj.thisName = document.querySelector("input[name='initial']").value;
+    debugger;
     if(!scoreObj.thisName) {
         alert("Please enter your initials");
         return false;
     }
     else {
+        // new fxn
         var savedScores = localStorage.getItem("webScores");
         savedScores = JSON.parse(savedScores);
-        console.log(savedScores);
+        
+        var isExist = false;
+        var previousScore = 0;
+        var previousIndex = 0;
         if(savedScores) {
-            highScores = savedScores;
+            console.log(savedScores);
+            console.log(JSON.stringify(savedScores));
+            console.log(scoreObj.thisName);
+            for (var l = 0; l < savedScores.length; l++){
+                console.log(savedScores[l].thisName);
+                console.log(savedScores[l].thisScore);
+                if(savedScores[l].thisName === scoreObj.thisName) {
+                    isExist = true;
+                    previousScore = savedScores[l].thisScore;
+                    previousIndex = l;
+                    break;
+                }
+            }
+
+            if (isExist === true) {
+                var highestValue = Math.max(previousScore, scoreObj.thisScore);
+                console.log(highestValue);
+                var modifiedScore = {
+                    thisName: scoreObj.thisName, 
+                    thisScore: highestValue
+                }; 
+                savedScores.splice(previousIndex, 1, modifiedScore);
+                highScores = savedScores;
+            }
+            else {
+                highScores = savedScores;
+                highScores.push(scoreObj);  
+            }
+           
         }
-        highScores.push(scoreObj);
-        var webScores = highScores;        
+        // condition for no saved scores
+        else {
+            highScores.push(scoreObj);
+        }
+        //
+        var webScores = highScores;
         localStorage.setItem("webScores", JSON.stringify(webScores));
     }
 };
