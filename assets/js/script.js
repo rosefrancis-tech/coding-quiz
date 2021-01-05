@@ -247,27 +247,27 @@ var viewHighScores = function () {
 
 // function for local storage
 var scoreHistory = function(scoreObj) {
+    // give the initial the input value from the browser
     scoreObj.thisName = document.querySelector("input[name='initial']").value;
     debugger;
+    // condition when no initial is entered
     if(!scoreObj.thisName) {
         alert("Please enter your initials");
         return false;
     }
     else {
-        // new fxn
+        // get values from local storage
         var savedScores = localStorage.getItem("webScores");
         savedScores = JSON.parse(savedScores);
         
         var isExist = false;
         var previousScore = 0;
         var previousIndex = 0;
+        // condition when there is previous values
         if(savedScores) {
-            console.log(savedScores);
-            console.log(JSON.stringify(savedScores));
-            console.log(scoreObj.thisName);
+            // loop for checking all elements of local storage
             for (var l = 0; l < savedScores.length; l++){
-                console.log(savedScores[l].thisName);
-                console.log(savedScores[l].thisScore);
+                // condition when there is previous score for user with same initial
                 if(savedScores[l].thisName === scoreObj.thisName) {
                     isExist = true;
                     previousScore = savedScores[l].thisScore;
@@ -275,28 +275,28 @@ var scoreHistory = function(scoreObj) {
                     break;
                 }
             }
-
             if (isExist === true) {
+                // compare and get the highest score from the current and saved values
                 var highestValue = Math.max(previousScore, scoreObj.thisScore);
-                console.log(highestValue);
                 var modifiedScore = {
                     thisName: scoreObj.thisName, 
                     thisScore: highestValue
                 }; 
+                // replace the previous score with the present highscore
                 savedScores.splice(previousIndex, 1, modifiedScore);
                 highScores = savedScores;
             }
+            // when there is no previous score for the current initial
             else {
                 highScores = savedScores;
                 highScores.push(scoreObj);  
-            }
-           
+            } 
         }
         // condition for no saved scores
         else {
             highScores.push(scoreObj);
         }
-        //
+        // saving into local storage
         var webScores = highScores;
         localStorage.setItem("webScores", JSON.stringify(webScores));
     }
