@@ -248,7 +248,7 @@ var viewHighScores = function () {
 // function for local storage
 var scoreHistory = function(scoreObj) {
     // give the initial the input value from the browser
-    scoreObj.thisName = document.querySelector("input[name='initial']").value;
+    scoreObj.thisName = document.querySelector("input[name='initial']").value.toLowerCase();
     debugger;
     // condition when no initial is entered
     if(!scoreObj.thisName) {
