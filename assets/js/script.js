@@ -113,7 +113,9 @@ var clearFooter = function () {
 
 // function for clear header
 var clearHeader = function () {
-    headerEl.remove();
+    //headerEl.remove();
+    headerEl.setAttribute("style", "color: white;");
+    highScoreLinkEl.setAttribute("style", "color: white;");
 };
 
 // function for displaying results
@@ -179,6 +181,7 @@ var displayResults = function() {
 var viewHighScores = function () {
    
     clearHeader();
+
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
