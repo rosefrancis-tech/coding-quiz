@@ -181,7 +181,6 @@ var displayResults = function() {
 var viewHighScores = function () {
    
     clearHeader();
-
     scoreCardEl.remove();
     
     var highScoreCardEl = document.createElement("div");
