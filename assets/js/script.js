@@ -113,7 +113,7 @@ var clearFooter = function () {
 
 // function for clear header
 var clearHeader = function () {
-    //headerEl.remove();
+    //change the font color to background color for hiding
     headerEl.setAttribute("style", "color: white;");
     highScoreLinkEl.setAttribute("style", "color: white;");
 };
@@ -121,17 +121,17 @@ var clearHeader = function () {
 // function for displaying results
 var displayResults = function() {
     quizContainer.remove();
-        
+    // create heading element    
     scoreCardEl.className = "score-card";
     var scoreEl1 = document.createElement("h1");
     quizCardEl.appendChild(scoreCardEl);
     scoreEl1.innerHTML = "All done!";
     scoreCardEl.appendChild(scoreEl1);
-    
+    // create paragraph element
     var scoreEl2 = document.createElement("p");
     scoreEl2.innerHTML = "Your final score is " + score +".";
     scoreCardEl.appendChild(scoreEl2);
-
+    // Create section and hold label, input and button elements
     var formEl = document.createElement("section");
     scoreCardEl.appendChild(formEl);
 
@@ -166,11 +166,12 @@ var displayResults = function() {
         // condition when no initial is entered
         if(!scoreObj.thisName) {
             alert("Please enter your initials");
-            //return false;
         }
         else {
+        
         // call function for retrieve and save with local storage
         scoreHistory(scoreObj);
+
         // call function to display high scores list
         viewHighScores();     
         }
@@ -179,7 +180,7 @@ var displayResults = function() {
 
 // function for view high scores
 var viewHighScores = function () {
-   
+    highScoreLinkEl.removeEventListener("click", spoilerAlert, false);
     clearHeader();
     scoreCardEl.remove();
     
