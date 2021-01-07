@@ -364,7 +364,7 @@ var timer = function(event) {
 
 // function for view scores from other pages
 var spoilerAlert = function() {
-    alert("High Scores will be displayed when you submit your score!");
+    alert("High Scores will be displayed at the end of the quiz when you submit your score!");
 };
 
 // for Start Quiz button
