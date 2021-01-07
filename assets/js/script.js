@@ -11,6 +11,56 @@ var footerEl = document.createElement("footer");
 var scoreCardEl = document.createElement("div");
 var myQuestions = [
     {
+        question: "Commonly used datatypes Do Not include",
+        answers: [
+          "1. Strings",
+          "2. Booleans",
+          "3. Alerts",
+          "4. Numbers"
+        ],
+        correctAnswer: "btnid2"
+    },
+    {
+        question: "Which of the following is NOT a reason to validate a user's responses?",
+        answers: [
+          "1. Offers the user an opportunity to enter a correct response.",
+          "2. Reduces bogus answers getting stored in the database.",
+          "3. Improves the user experience.",
+          "4. Increases the overall quality of the user data."
+        ],
+        correctAnswer: "btnid2"
+    },
+    {
+        question: "Which statement does NOT guarantee that number will be non-negative?",
+        answers: [
+          "1. number = Math.max(1, highScore);",
+          "2. if (number < 0) {number = 1;}",
+          "3. number = Math.random();",
+          "4. number = Math.min(10, highScore);"
+        ],
+        correctAnswer: "btnid3"
+    },
+    {
+        question: "Which statement correctly stores data into the Web Storage API?",
+        answers: [
+          "1. localStorage.getItem('lunch', 'sandwich');",
+          "2. localStorage.setItem('lunch', 'sandwich')",
+          "3. getItem.localStorage.('lunch', 'sandwich')",
+          "4. setItem.localStorage('lunch', 'sandwich')"
+        ],
+        correctAnswer: "btnid1"
+    },
+    {
+        question: "Which of these values is NOT considered false?",
+        answers: [
+          "1. 0",
+          "2. '0'",
+          "3. null",
+          "4. ''"
+        ],
+        correctAnswer: "btnid1"
+    },
+    { 
         question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
         answers: [
           "1. if i <> 5",
@@ -295,7 +345,7 @@ var submitAnswer = function (event) {
         if (optionId === myQuestions[questionNumber].correctAnswer) {
             choice = "Correct!";
             // add score by 20 for correct choice
-            score = score + 20;
+            score = score + 10;
         }
         else {
             choice = "Wrong!";
