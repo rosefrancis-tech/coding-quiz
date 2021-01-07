@@ -345,7 +345,7 @@ var submitAnswer = function (event) {
         if (optionId === myQuestions[questionNumber].correctAnswer) {
             choice = "Correct!";
             // add score by 20 for correct choice
-            score = score + 20;
+            score = score + 10;
         }
         else {
             choice = "Wrong!";
